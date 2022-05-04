@@ -2,21 +2,27 @@
 title: "Final Project"
 author: "Ashlee"
 date: "4/27/2022"
-output: html_document
+output: 
+  html_document:
+    theme: darkly
+    highlight: breezedark 
+    toc: true 
+    toc_float: true
+
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = TRUE, fig.path = '../Output/')
 ```
 
 # Introduction 
-For my final project, I will be creating a phylogenetic tree based of the promoter region sequence, UVRAG along with twenty species that carry similar conservation of the same promoter region. 
+For my final project, I will be creating a phylogenetic tree based of the promoter region sequence, UVRAG along with twenty species that carry similar conservation of the same promoter region. A phylogenetic tree is a branching diagram or a tree showing the evolutionary relationships among various biological species or other entities based upon similarities and differences in their physical or genetic characteristics. The UV Radiation Resistance Associated gene (UVRAG) complements the ultraviolet sensitivity of xeroderma pigmentosum group C cells and encodes a protein with a C2 domain. The protein activates the Beclin1-PI(3)KC3 complex, promoting autophagy and suppressing the proliferation and tumorigenicity of human colon cancer cells. Chromosomal aberrations involving this gene are associated with left-right axis malformation and mutations in this gene have been associated with colon cancer. 
 
-# Libraries used 
-```{r}
-library(stats)
+# Libraries  
+```{r, message=FALSE}
+library(phytools)
 library(ade4)
-library(ape)
+library(ape) # analysis of phylogenetics and evolution 
 library(adegenet)
 library(phangorn)
 library(dplyr)
@@ -25,9 +31,10 @@ library(tidyverse)
 library(here)
 
 ```
-Example using influenza data 
 
-Load in the data using the function fasta2DNAbin() from adegenet package. Later converted to format used by phanogram package 
+# Example using influenza data 
+
+fasta2DNAbin reads in alignments in fasta format and outputs a DNAbin object. This output contains alignments or SNPs. This function is used through the ape project. 
 ```{r}
 dna <- fasta2DNAbin(file="http://adegenet.r-forge.r-project.org/files/usflu.fasta")
 
@@ -38,17 +45,21 @@ Read in the annotation file
 annot <- read.csv("http://adegenet.r-forge.r-project.org/files/usflu.annot.csv", header=TRUE, row.names=1)
 annot
 ```
-Using a Distance based method 
-Step 1
-```{r distanceflu}
+## Using a Distance-based method 
+
+Distance-based methods are produced calculating the genetic distances between pairs of taxa, followed by hierarchial clustering.
+
+### Step 1
+```{r distanceflu, fig.align='center'}
 D <- dist.dna(dna, model = "TN93")
 length(D) #number of pairwise distances, computed as n(n-1)/2
 
 temp <- as.data.frame(as.matrix(D))
 table.paint(temp, cleg=0, clabel.row=.5, clabel.col=.5) #darker shades of gray mean a larger distance # you can also make cool color plots but they're much more complicated because they use the image() function
 ```
-Step 2
-```{r treeflu}
+
+### Step 2
+```{r treeflu, fig.align='center'}
 tre <- nj(D)
 class(tre) #all trees created using {ape} package will be of class phylo
 
@@ -58,45 +69,42 @@ tre # tells us what the tree will look like but doesn't show the actual construc
 plot(tre, cex = 0.6)
 title("A Simple NJ Tree")
 ```
-```{r clusterflu}
+
+### Step 3 
+Example using a cluster diagram 
+```{r clusterflu, fig.align='center'}
 # or 
 h_cluster <- hclust(D, method = "average", members = NULL) # method = average is used for UPGMA, members can be equal to NULL or a vector with a length of size D
 plot(h_cluster, cex = 0.6)
 ```
-# Loading in Data 
-```{r}
-MSA2 <- read_csv(here("Data", "MSAs for UVRAG..csv"))
-```
+
+# Working with UVRAG promoter sequence 
+
+![UVRAG promoter sequences in FASTA format](../images/UVRAGFASTA.png)
+
+![Multiple Sequence Alignments for UVRAG](../images/MSAsforUVRAG.png)
+
 
 ```{r FASTA}
-
-#fasta2DNAbin(file, quiet=FALSE, chunkSize=10, snpOnly=FALSE)
-#UVRAG <- fasta2DNAbin(file= here("FinalProject","Data","MSAs.fa", 
-#                                  chunk = 10))
 
 UVRAG1 <- fasta2DNAbin(file = here("Data", "MSAs.fas"))
 
 UVRAG1
 ```
 
-```{r}
-#annot1 <- read_csv(here("Data", "MSAs for UVRAG *.csv", header=TRUE, row.names=1))
-#annot1 <- read.csv("MSAs for UVRAG *.csv", header=TRUE, row.names=1)
-#annot1
-```
 
-
-# Graphing 
-```{r DistDNA}
+## Creating a data frame  
+```{r DistDNA, fig.align='center'}
 U <- dist.dna(UVRAG1, model = "TN93")
 length(U) #number of pairwise distances, computed as n(n-1)/2
 
-temp1 <- as.data.frame(as.matrix(U))
-#table.paint(temp1, cleg=1, clabel.row=1, clabel.col=1)
+
+temp1 <- as.data.frame(as.matrix(U)) 
+
 ```
 
-
-```{r UVRAGtree}
+## Creating a phylogenetic tree using the UVRAG promoter region 
+```{r UVRAGtree, fig.align='center', warning=FALSE}
 # Creating tree 
 tree <- fastme.bal(U) # had to use fastme based off of fasta data 
 class(tree) #all trees created using {ape} package will be of class phylo
@@ -108,10 +116,12 @@ plot(tree, cex = 0.6)
 title("Conservation of UVRAG Promoter")
 ```
 
-```{r}
-# or 
+Using the conservational data from the UVRAG promoter to create an unrooted tree
+```{r unrootedtree, fig.align='center', warning=FALSE}
 
-#cluster <- hclust(UR, method = "median", members = NULL) 
-#plot(cluster, cex = 0.6)
+plot(unroot(tree),type="unrooted",no.margin=TRUE,lab4ut="axial",
+    edge.width=2)
+
+
 ```
 
