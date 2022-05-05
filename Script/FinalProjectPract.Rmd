@@ -20,16 +20,13 @@ For my final project, I will be creating a phylogenetic tree based of the promot
 
 # Libraries  
 ```{r, message=FALSE}
-library(phytools)
-library(ade4)
+library(phytools) # functions for phylogenetic analysis 
+library(ade4) # analysis of ecological data 
 library(ape) # analysis of phylogenetics and evolution 
-library(adegenet)
-library(phangorn)
-library(dplyr)
-library(ggplot2)
-library(tidyverse)
-library(here)
-
+library(adegenet) # Exploratory analysis of genetic and genomic data 
+library(phangorn) # Phylogenetic reconstruction and analysis 
+library(tidyverse) # Collection of packages 
+library(here) # file referencing 
 ```
 
 # Example using influenza data 
@@ -45,17 +42,19 @@ Read in the annotation file
 annot <- read.csv("http://adegenet.r-forge.r-project.org/files/usflu.annot.csv", header=TRUE, row.names=1)
 annot
 ```
-## Using a Distance-based method 
+## Using a Distance-based method phylogeny 
 
 Distance-based methods are produced calculating the genetic distances between pairs of taxa, followed by hierarchial clustering.
 
 ### Step 1
 ```{r distanceflu, fig.align='center'}
-D <- dist.dna(dna, model = "TN93")
+D <- dist.dna(dna, model = "TN93") #TN93 type of evolutionary model being used. This one allows for different transition rates, heterogenous base frequencies, and variation of substitution rate at the same site
 length(D) #number of pairwise distances, computed as n(n-1)/2
 
 temp <- as.data.frame(as.matrix(D))
-table.paint(temp, cleg=0, clabel.row=.5, clabel.col=.5) #darker shades of gray mean a larger distance # you can also make cool color plots but they're much more complicated because they use the image() function
+table.paint(temp, cleg=0, clabel.row=.5, clabel.col=.5) #darker shades of gray mean a larger distance # 
+
+# Shows a trend or pattern 
 ```
 
 ### Step 2
@@ -78,7 +77,11 @@ h_cluster <- hclust(D, method = "average", members = NULL) # method = average is
 plot(h_cluster, cex = 0.6)
 ```
 
-# Working with UVRAG promoter sequence 
+# Working with UVRAG promoter region 
+
+Study whether specific transcription factor binding sites (TFBS) play a role in the regulation and expression of the promoter region. 
+
+![TFBS of the UVRAG Promoter](../images/TFBS.png)
 
 ![UVRAG promoter sequences in FASTA format](../images/UVRAGFASTA.png)
 
@@ -106,7 +109,7 @@ temp1 <- as.data.frame(as.matrix(U))
 ## Creating a phylogenetic tree using the UVRAG promoter region 
 ```{r UVRAGtree, fig.align='center', warning=FALSE}
 # Creating tree 
-tree <- fastme.bal(U) # had to use fastme based off of fasta data 
+tree <- fastme.bal(U) # had to use fastme based off of fasta data. minimum evolution algorithm 
 class(tree) #all trees created using {ape} package will be of class phylo
 
 tree <- ladderize(tree)
@@ -116,7 +119,9 @@ plot(tree, cex = 0.6)
 title("Conservation of UVRAG Promoter")
 ```
 
-Using the conservational data from the UVRAG promoter to create an unrooted tree
+The Homo Sapiens share similar conservation with *Peromyscus maniculatus*. Each node depicts the similar common ancestor of the species. Although this is preliminary data and is subject to change as further research is conducted on the promoter region and its expression and activity. A good starting point leading to possible further directions when studying the putative promoter region. 
+
+Using the data from the UVRAG promoter to create an unrooted tree
 ```{r unrootedtree, fig.align='center', warning=FALSE}
 
 plot(unroot(tree),type="unrooted",no.margin=TRUE,lab4ut="axial",
