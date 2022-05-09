@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE, fig.path = '../Output/')
 ```
 
 # Introduction 
-For my final project, I will be creating a phylogenetic tree based of the promoter region sequence, UVRAG along with twenty species that carry similar conservation of the same promoter region. A phylogenetic tree is a branching diagram or a tree showing the evolutionary relationships among various biological species or other entities based upon similarities and differences in their physical or genetic characteristics. The UV Radiation Resistance Associated gene (UVRAG) complements the ultraviolet sensitivity of xeroderma pigmentosum group C cells and encodes a protein with a C2 domain. The protein activates the Beclin1-PI(3)KC3 complex, promoting autophagy and suppressing the proliferation and tumorigenicity of human colon cancer cells. Chromosomal aberrations involving this gene are associated with left-right axis malformation and mutations in this gene have been associated with colon cancer. 
+For my final project, I will be creating a phylogenetic tree based of the promoter region sequence, UVRAG along with twenty species that carry similar conservation of the same promoter region. A phylogenetic tree is a branching diagram or a tree showing the evolutionary relationships among various biological species or other entities based upon similarities and differences in their physical or genetic characteristics. The UV Radiation Resistance Associated Gene (UVRAG) complements the ultraviolet sensitivity of xeroderma pigmentosum group C cells and encodes a protein with a C2 domain. The protein activates the Beclin1-PI(3)KC3 complex, promoting autophagy and suppressing the proliferation and tumorigenicity of human colon cancer cells. Chromosomal aberrations involving this gene are associated with left-right axis malformation and mutations in this gene have been associated with colon cancer. 
 
 # Libraries  
 ```{r, message=FALSE}
@@ -79,7 +79,7 @@ plot(h_cluster, cex = 0.6)
 
 # Working with UVRAG promoter region 
 
-Study whether specific transcription factor binding sites (TFBS) play a role in the regulation and expression of the promoter region. 
+Study whether specific Transcription Factor Binding Sites (TFBS) play a role in the regulation and expression of the promoter region. 
 
 ![TFBS of the UVRAG Promoter](../images/TFBS.png)
 
@@ -135,3 +135,5 @@ plot(unroot(tree),type="unrooted",no.margin=TRUE,lab4ut="axial",
 
 ```
 
+<center>
+![](../images/giphy.gif)
