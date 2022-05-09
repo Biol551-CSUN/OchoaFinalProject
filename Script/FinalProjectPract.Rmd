@@ -87,6 +87,7 @@ Study whether specific transcription factor binding sites (TFBS) play a role in 
 
 ![Multiple Sequence Alignments for UVRAG](../images/MSAsforUVRAG.png)
 
+![UVRAG sublconed into UVRAG](../images/pGL3UVRAG.jpeg)
 
 ```{r FASTA}
 
@@ -96,7 +97,7 @@ UVRAG1
 ```
 
 
-## Creating a data frame  
+Creating a data frame  
 ```{r DistDNA, fig.align='center'}
 U <- dist.dna(UVRAG1, model = "TN93")
 length(U) #number of pairwise distances, computed as n(n-1)/2
