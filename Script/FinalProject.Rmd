@@ -31,7 +31,7 @@ library(here) # file referencing
 
 # Example using influenza data 
 
-fasta2DNAbin reads in alignments in fasta format and outputs a DNAbin object. This output contains alignments or SNPs. This function is used through the ape project. 
+fasta2DNAbin reads in alignments in fasta format and outputs a DNAbin object. This output contains alignments or SNPs. This function is used through the ape package. 
 ```{r}
 dna <- fasta2DNAbin(file="http://adegenet.r-forge.r-project.org/files/usflu.fasta")
 
@@ -59,7 +59,7 @@ table.paint(temp, cleg=0, clabel.row=.5, clabel.col=.5) #darker shades of gray m
 
 ### Step 2
 ```{r treeflu, fig.align='center'}
-tre <- nj(D)
+tre <- nj(D) # classic neighbor-joining algorithm 
 class(tre) #all trees created using {ape} package will be of class phylo
 
 tre <- ladderize(tre)
@@ -83,11 +83,15 @@ Study whether specific transcription factor binding sites (TFBS) play a role in 
 
 ![TFBS of the UVRAG Promoter](../images/TFBS.png)
 
+![NCBI BLAST](../images/NCBIBLAST.png)
+
+![UVRAG Data](../images/UVRAGMSA.png)
+
 ![UVRAG promoter sequences in FASTA format](../images/UVRAGFASTA.png)
 
 ![Multiple Sequence Alignments for UVRAG](../images/MSAsforUVRAG.png)
 
-![UVRAG sublconed into UVRAG](../images/pGL3UVRAG.jpeg)
+![UVRAG sublconed into pGL3](../images/pGL3UVRAG.jpeg)
 
 ```{r FASTA}
 
@@ -120,9 +124,9 @@ plot(tree, cex = 0.6)
 title("Conservation of UVRAG Promoter")
 ```
 
-The Homo Sapiens share similar conservation with *Peromyscus maniculatus*. Each node depicts the similar common ancestor of the species. Although this is preliminary data and is subject to change as further research is conducted on the promoter region and its expression and activity. A good starting point leading to possible further directions when studying the putative promoter region. 
+The Homo Sapiens share similar conservation with *Peromyscus maniculatus*. Each node depicts the similar common ancestor of the species. Although This is preliminary data and is subject to change as further research is conducted on the promoter region but is a good starting point leading to possible further directions when studying the putative promoter region. 
 
-Using the data from the UVRAG promoter to create an unrooted tree
+#### Using the data from the UVRAG promoter to create an unrooted tree
 ```{r unrootedtree, fig.align='center', warning=FALSE}
 
 plot(unroot(tree),type="unrooted",no.margin=TRUE,lab4ut="axial",
