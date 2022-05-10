@@ -1,4 +1,4 @@
-# Phylogenetic analysis of the putative UVRAG promoter region 
+# Phylogenetic analysis on the putative UVRAG promoter region 
 
 For my final project I will be using data gathered through NCBI and other bioinformatic websites on the UVRAG promoter region that I am working with in my gene regulation lab. 
 
