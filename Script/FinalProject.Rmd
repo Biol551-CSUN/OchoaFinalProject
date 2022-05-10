@@ -1,5 +1,5 @@
 ---
-title: "Final Project"
+title: "Phylogentic Analysis on UVRAG"
 author: "Ashlee"
 date: "4/27/2022"
 output: 
@@ -16,16 +16,16 @@ knitr::opts_chunk$set(echo = TRUE, fig.path = '../Output/')
 ```
 
 # Introduction 
-For my final project I will be creating a phylogenetic tree based of the promoter region, UVRAG along with twenty species that carry similar conservation of the same promoter region. A phylogenetic tree is a branching diagram or a tree showing the evolutionary relationships among various biological species or other entities based upon similarities and differences in their physical or genetic characteristics. The UV Radiation Resistance Associated Gene (UVRAG) complements the ultraviolet sensitivity of xeroderma pigmentosum group C cells and encodes a protein with a C2 domain. The protein activates the Beclin1-PI(3)KC3 complex, promoting autophagy and suppressing the proliferation and tumorigenicity of human colon cancer cells. Chromosomal aberrations involving this gene are associated with left-right axis malformation and mutations in this gene have been associated with colon cancer. 
+For my final project I will be creating a phylogenetic tree between twenty species that carry similar conservation of the promoter region of the UVRAG gene. A phylogenetic tree is a branching diagram or a tree showing the evolutionary relationships among various biological species or other entities based upon similarities and differences in their physical or genetic characteristics. The UV Radiation Resistance Associated Gene (UVRAG) complements the ultraviolet sensitivity of xeroderma pigmentosum group C cells and encodes a protein with a C2 domain. The protein activates the Beclin1-PI(3)KC3 complex, promoting autophagy and suppressing the proliferation and tumorigenicity of human colon cancer cells. Chromosomal aberrations involving this gene are associated with left-right axis malformation and mutations in this gene have been associated with colon cancer. 
 
 # Libraries  
 ```{r, message=FALSE}
 library(phytools) # functions for phylogenetic analysis 
 library(ade4) # analysis of ecological data 
 library(ape) # analysis of phylogenetics and evolution 
-library(adegenet) # Exploratory analysis of genetic and genomic data 
-library(phangorn) # Phylogenetic reconstruction and analysis 
-library(tidyverse) # Collection of packages 
+library(adegenet) # exploratory analysis of genetic and genomic data 
+library(phangorn) # phylogenetic reconstruction and analysis 
+library(tidyverse) # collection of packages 
 library(here) # file referencing 
 ```
 
@@ -124,7 +124,7 @@ plot(tree, cex = 0.6)
 title("Conservation of UVRAG Promoter")
 ```
 
-The Homo Sapiens share similar conservation with *Peromyscus maniculatus*. Each node depicts the similar common ancestor of the species. Although this is preliminary data and is subject to change as further research is conducted on the promoter region but is a good starting point leading to possible further directions when studying the putative promoter region. 
+Homo Sapiens share similar conservation with *Peromyscus maniculatus* for this promoter region sequence. Each node depicts the similar common ancestor of the species. Although this is preliminary data and is subject to change as further research is conducted on the promoter region, it tis a good starting point leading to possible further directions when studying the putative promoter region. 
 
 #### Using the data from the UVRAG promoter to create an unrooted tree
 ```{r unrootedtree, fig.align='center', warning=FALSE}
